@@ -33,6 +33,7 @@ def run_backtest(
     strategy_params: dict,
     trade_size: float = 0.01,
     starting_capital: float = 100_000.0,
+    registry: dict | None = None,
 ) -> dict:
     """
     Run a backtest using data from the catalog.
@@ -101,7 +102,7 @@ def run_backtest(
     engine.add_data(bars)
 
     # Create strategy
-    registry_entry = STRATEGY_REGISTRY[strategy_name]
+    registry_entry = (registry or STRATEGY_REGISTRY)[strategy_name]
     config_class = registry_entry["config_class"]
 
     config_kwargs = {

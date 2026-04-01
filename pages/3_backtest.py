@@ -14,7 +14,13 @@ import streamlit as st
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from core.strategies import STRATEGY_REGISTRY
+from core.custom_strategy_loader import (
+    validate_and_load_strategy,
+    get_strategy_template,
+    get_strategy_guidelines,
+    get_merged_registry,
+    sanitize_filename,
+)
 
 
 st.set_page_config(page_title="Run Backtest", page_icon="🧪", layout="wide")
@@ -26,6 +32,8 @@ if "catalog_path" not in st.session_state:
     st.session_state.catalog_path = str(Path(__file__).resolve().parent.parent / "catalog")
 
 catalog_path = st.session_state.catalog_path
+custom_strategies_dir = Path(__file__).resolve().parent.parent / "custom_strategies"
+custom_strategies_dir.mkdir(exist_ok=True)
 
 if not Path(catalog_path).exists():
     st.warning("No catalog found. Go to **Download Data** first.")
@@ -57,13 +65,100 @@ with col1:
 with col2:
     starting_capital = st.number_input("Starting Capital ($)", value=100_000.0, min_value=1000.0, step=10_000.0)
 
+# --- Custom Strategies ---
+st.subheader("Custom Strategies")
+
+upload_col, template_col = st.columns(2)
+
+with upload_col:
+    uploaded_file = st.file_uploader("Upload a custom strategy (.py)", type=["py"], key="strategy_uploader")
+
+with template_col:
+    st.download_button(
+        label="Download Strategy Template",
+        data=get_strategy_template(),
+        file_name="custom_strategy_template.py",
+        mime="text/x-python",
+    )
+
+# Process uploaded file
+if uploaded_file is not None:
+    safe_name = sanitize_filename(uploaded_file.name)
+    if not safe_name.endswith(".py"):
+        safe_name += ".py"
+    dest_path = custom_strategies_dir / safe_name
+
+    file_existed = dest_path.exists()
+    dest_path.write_bytes(uploaded_file.getvalue())
+
+    try:
+        entry = validate_and_load_strategy(dest_path)
+        # Check for duplicate STRATEGY_NAME among other custom files
+        import sys as _sys
+        mod_name = f"custom_strategy_{dest_path.stem}"
+        mod = _sys.modules.get(mod_name)
+        strat_name = getattr(mod, "STRATEGY_NAME", dest_path.stem) if mod else dest_path.stem
+
+        # Check other custom files for same STRATEGY_NAME
+        duplicate = False
+        for other_file in custom_strategies_dir.glob("*.py"):
+            if other_file.name == safe_name or other_file.name.startswith("__"):
+                continue
+            try:
+                other_entry = validate_and_load_strategy(other_file)
+                other_mod_name = f"custom_strategy_{other_file.stem}"
+                other_mod = _sys.modules.get(other_mod_name)
+                other_name = getattr(other_mod, "STRATEGY_NAME", other_file.stem) if other_mod else other_file.stem
+                if other_name == strat_name:
+                    duplicate = True
+                    break
+            except Exception:
+                continue
+
+        if duplicate:
+            dest_path.unlink()
+            st.error(f"A custom strategy named '{strat_name}' already exists. Use a different STRATEGY_NAME.")
+        else:
+            if file_existed:
+                st.warning(f"Replaced existing file: {safe_name}")
+            st.success(f"Strategy '{strat_name}' loaded successfully!")
+    except ValueError as e:
+        dest_path.unlink(missing_ok=True)
+        st.error(f"Invalid strategy file:\n\n{e}")
+    except Exception as e:
+        dest_path.unlink(missing_ok=True)
+        st.error(f"Unexpected error: {e}")
+
+# Guidelines expander
+with st.expander("Strategy Guidelines & Requirements"):
+    st.markdown(get_strategy_guidelines())
+
+# Manage existing custom strategies
+custom_files = sorted(f for f in custom_strategies_dir.glob("*.py") if not f.name.startswith("__"))
+if custom_files:
+    with st.expander(f"Manage Custom Strategies ({len(custom_files)} loaded)"):
+        for cf in custom_files:
+            col_name, col_btn = st.columns([4, 1])
+            with col_name:
+                st.text(cf.name)
+            with col_btn:
+                if st.button("Delete", key=f"delete_{cf.name}", type="secondary"):
+                    cf.unlink()
+                    st.rerun()
+
+# --- Build merged registry ---
+merged_registry, load_warnings = get_merged_registry(custom_strategies_dir)
+for warn in load_warnings:
+    st.warning(warn)
+
 # --- Strategy Selection ---
 st.subheader("Select Strategies")
 
+registry_keys = list(merged_registry.keys())
 selected_strategies = st.multiselect(
     "Choose one or more strategies to backtest",
-    list(STRATEGY_REGISTRY.keys()),
-    default=[list(STRATEGY_REGISTRY.keys())[0]],
+    registry_keys,
+    default=[registry_keys[0]] if registry_keys else [],
 )
 
 if not selected_strategies:
@@ -77,7 +172,7 @@ strategy_configs = {}
 
 for strategy_name in selected_strategies:
     with st.expander(f"**{strategy_name}**", expanded=True):
-        st.caption(STRATEGY_REGISTRY[strategy_name]["description"])
+        st.caption(merged_registry[strategy_name]["description"])
 
         # Trade size for this strategy
         trade_size = st.number_input(
@@ -89,10 +184,10 @@ for strategy_name in selected_strategies:
         )
 
         # Strategy-specific parameters
-        params = STRATEGY_REGISTRY[strategy_name]["params"]
+        params = merged_registry[strategy_name]["params"]
         strategy_params = {}
 
-        param_cols = st.columns(len(params))
+        param_cols = st.columns(max(len(params), 1))
         for i, (param_key, param_info) in enumerate(params.items()):
             with param_cols[i]:
                 if isinstance(param_info["default"], bool):
@@ -150,6 +245,7 @@ if run_btn:
                 strategy_params=cfg["params"],
                 trade_size=cfg["trade_size"],
                 starting_capital=starting_capital,
+                registry=merged_registry,
             )
             all_results[strategy_name] = results
 
@@ -170,7 +266,8 @@ if run_btn:
         # Generate HTML report
         from core.report_generator import generate_report
 
-        backtest_name = f"{selected_bar_type.split('.')[0]}_{'_'.join(selected_strategies)}"
+        raw_name = f"{selected_bar_type.split('.')[0]}_{'_'.join(selected_strategies)}"
+        backtest_name = sanitize_filename(raw_name)
         report_html = generate_report(all_results, backtest_name=backtest_name)
         st.session_state["backtest_report_html"] = report_html
         st.session_state["backtest_report_name"] = backtest_name
