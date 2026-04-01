@@ -1,4 +1,4 @@
-# NautilusTrader Crypto Data Dashboard
+#M_CUBE Dashboard
 
 A simple web UI for downloading crypto data, viewing charts, running backtests,
 and analyzing performance — all without writing any code.
