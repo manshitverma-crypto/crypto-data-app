@@ -1,0 +1,156 @@
+total,locked,free,currency,account_id,account_type,base_currency,margins,reported,info
+100000.00,0.00,100000.00,USD,CRYPTO-001,MARGIN,USD,[],True,{}
+99999.91,33.25,99966.66,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '33.25', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+99986.80,0.00,99986.80,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+99986.69,37.80,99948.89,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '37.80', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+100560.92,0.00,100560.92,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+100560.24,239.02,100321.22,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '239.02', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+100670.98,0.00,100670.98,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+100670.41,200.06,100470.35,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '200.06', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+100693.15,0.00,100693.15,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+100692.56,208.22,100484.34,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '208.22', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+100912.09,0.00,100912.09,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+100911.71,131.25,100780.46,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '131.25', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+100856.16,0.00,100856.16,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+100855.84,111.92,100743.92,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '111.92', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+100921.54,0.00,100921.54,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+100921.29,88.84,100832.45,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '88.84', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+100903.29,0.00,100903.29,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+100903.05,82.62,100820.43,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '82.62', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+100894.58,0.00,100894.58,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+100894.34,85.51,100808.83,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '85.51', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+100908.29,0.00,100908.29,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+100908.03,90.48,100817.55,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '90.48', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+100928.04,0.00,100928.04,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+100927.80,83.39,100844.41,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '83.39', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+101069.31,0.00,101069.31,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+101068.93,133.05,100935.88,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '133.05', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+101023.71,0.00,101023.71,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+101023.29,148.73,100874.56,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '148.73', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+101252.71,0.00,101252.71,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+101252.05,229.26,101022.79,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '229.26', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+101297.23,0.00,101297.23,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+101296.62,213.23,101083.39,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '213.23', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+101732.10,0.00,101732.10,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+101731.05,366.02,101365.03,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '366.02', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+101565.32,0.00,101565.32,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+101564.11,423.60,101140.51,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '423.60', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+102750.26,0.00,102750.26,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+102747.86,839.59,101908.27,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '839.59', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+102433.32,0.00,102433.32,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+102430.61,948.73,101481.88,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '948.73', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+103399.10,0.00,103399.10,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+103395.42,1288.99,102106.43,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '1288.99', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+102246.95,0.00,102246.95,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+102242.12,1689.27,100552.85,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '1689.27', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+108894.65,0.00,108894.65,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+108883.16,4021.68,104861.48,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '4021.68', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+108849.55,0.00,108849.55,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+108838.04,4029.41,104808.63,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '4029.41', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+106245.79,0.00,106245.79,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+106236.86,3125.25,103111.61,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '3125.25', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+106170.10,0.00,106170.10,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+106161.11,3145.47,103015.64,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '3145.47', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+104522.58,0.00,104522.58,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+104515.22,2574.56,101940.66,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '2574.56', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+104445.19,0.00,104445.19,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+104437.77,2596.47,101841.30,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '2596.47', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+103342.65,0.00,103342.65,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+103336.32,2215.40,101120.92,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '2215.40', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+105626.68,0.00,105626.68,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+105622.64,1412.36,104210.28,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '1412.36', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+105186.20,0.00,105186.20,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+105182.60,1260.86,103921.74,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '1260.86', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+104775.52,0.00,104775.52,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+104771.51,1401.94,103369.57,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '1401.94', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+110275.61,0.00,110275.61,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+110266.09,3331.70,106934.39,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '3331.70', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+110415.00,0.00,110415.00,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+110405.64,3276.31,107129.33,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '3276.31', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+108085.63,0.00,108085.63,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+108078.58,2466.77,105611.81,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '2466.77', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+107038.56,0.00,107038.56,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+107030.48,2827.95,104202.53,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '2827.95', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+106866.34,0.00,106866.34,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+106858.42,2773.27,104085.15,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '2773.27', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+107585.45,0.00,107585.45,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+107578.26,2516.30,105061.96,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '2516.30', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+109570.50,0.00,109570.50,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+109561.31,3216.80,106344.51,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '3216.80', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+107750.30,0.00,107750.30,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+107739.31,3846.80,103892.51,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '3846.80', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+106980.55,0.00,106980.55,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+106970.31,3584.82,103385.49,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '3584.82', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+105775.33,0.00,105775.33,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+105763.90,3999.07,101764.83,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '3999.07', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+149316.09,0.00,149316.09,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+149261.06,19261.59,129999.47,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '19261.59', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+164279.31,0.00,164279.31,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+164239.34,13991.22,150248.12,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '13991.22', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+169114.64,0.00,169114.64,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+169069.74,15713.29,153356.45,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '15713.29', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+156422.57,0.00,156422.57,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+156365.09,20119.68,136245.41,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '20119.68', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+153640.56,0.00,153640.56,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+153585.74,19185.28,134400.46,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '19185.28', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+168960.84,0.00,168960.84,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+168921.44,13790.20,155131.24,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '13790.20', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+169147.95,0.00,169147.95,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+169108.28,13883.37,155224.91,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '13883.37', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+161907.73,0.00,161907.73,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+161860.91,16387.17,145473.74,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '16387.17', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+154470.24,0.00,154470.24,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+154430.77,13814.25,140616.52,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '13814.25', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+170220.19,0.00,170220.19,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+170196.53,8279.67,161916.86,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '8279.67', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+166818.01,0.00,166818.01,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+166797.71,7104.30,159693.41,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '7104.30', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+166579.43,0.00,166579.43,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+166558.93,7173.52,159385.41,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '7173.52', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+162664.74,0.00,162664.74,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+162648.12,5816.37,156831.75,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '5816.37', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+160377.86,0.00,160377.86,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+160358.99,6604.36,153754.63,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '6604.36', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+161656.45,0.00,161656.45,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+161636.26,7065.53,154570.73,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '7065.53', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+153756.79,0.00,153756.79,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+153728.75,9813.53,143915.22,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '9813.53', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+152663.87,0.00,152663.87,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+152636.87,9450.28,143186.59,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '9450.28', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+149126.92,0.00,149126.92,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+149096.44,10668.09,138428.35,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '10668.09', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+147661.20,0.00,147661.20,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+147632.13,10175.93,137456.20,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '10175.93', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+148694.49,0.00,148694.49,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+148666.51,9794.31,138872.20,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '9794.31', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+160719.75,0.00,160719.75,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+160679.67,14026.97,146652.70,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '14026.97', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+152414.53,0.00,152414.53,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+152366.24,16902.87,135463.37,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '16902.87', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+167852.05,0.00,167852.05,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+167788.21,22345.25,145442.96,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '22345.25', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+162296.57,0.00,162296.57,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+162227.30,24243.08,137984.22,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '24243.08', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+154704.20,0.00,154704.20,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+154642.40,21631.62,133010.78,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '21631.62', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+149560.30,0.00,149560.30,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+149493.48,23386.97,126106.51,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '23386.97', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+141508.77,0.00,141508.77,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+141449.88,20612.94,120836.94,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '20612.94', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+137137.69,0.00,137137.69,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+137074.55,22100.10,114974.45,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '22100.10', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+169609.01,0.00,169609.01,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+169513.24,33520.68,135992.56,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '33520.68', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+171248.89,0.00,171248.89,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+171154.95,32880.33,138274.62,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '32880.33', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+187225.39,0.00,187225.39,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+187115.27,38543.52,148571.75,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '38543.52', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+174691.76,0.00,174691.76,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+174569.33,42848.90,131720.43,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '42848.90', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+162103.55,0.00,162103.55,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+161993.48,38524.40,123469.08,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '38524.40', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+180945.04,0.00,180945.04,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+180854.01,31859.50,148994.51,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '31859.50', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+168436.95,0.00,168436.95,USD,CRYPTO-001,MARGIN,USD,[],False,{}
+168358.26,27541.07,140817.19,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '27541.07', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
+177050.17,0.00,177050.17,USD,CRYPTO-001,MARGIN,USD,[],False,{}
