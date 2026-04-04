@@ -1,4 +1,0 @@
-total,locked,free,currency,account_id,account_type,base_currency,margins,reported,info
-100000.00,0.00,100000.00,USD,CRYPTO-001,MARGIN,USD,[],True,{}
-99999.89,39.98,99959.91,USD,CRYPTO-001,MARGIN,USD,"[{'type': 'MarginBalance', 'initial': '0.00', 'maintenance': '39.98', 'currency': 'USD', 'instrument_id': 'BTCUSD.CRYPTO'}]",False,{}
-169742.66,0.00,169742.66,USD,CRYPTO-001,MARGIN,USD,[],False,{}

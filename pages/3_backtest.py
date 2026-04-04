@@ -22,6 +22,7 @@ from core.custom_strategy_loader import (
     get_merged_registry,
     sanitize_filename,
 )
+from core.report_generator import build_orderbook_dataframe, build_logs_dataframe
 
 
 st.set_page_config(page_title="Run Backtest", page_icon="🧪", layout="wide")
@@ -280,9 +281,9 @@ if run_btn:
         report_path.write_text(report_html, encoding="utf-8")
 
         # Auto-save CSV reports per strategy
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        timestamp = datetime.now().strftime("%d_%B_%Y").lower()
         for strat_name, strat_results in all_results.items():
-            safe_name = strat_name.replace(" ", "_")
+            safe_name = sanitize_filename(strat_name)
 
             # Position report
             if strat_results.get("positions_report") is not None and not strat_results["positions_report"].empty:
@@ -305,6 +306,22 @@ if run_btn:
                 acct_csv.to_csv(
                     reports_dir / f"account_report_{safe_name}_{timestamp}.csv", index=False
                 )
+
+            # Order book report
+            if strat_results.get("positions_report") is not None and not strat_results["positions_report"].empty:
+                ob_df = build_orderbook_dataframe({safe_name: strat_results})
+                if not ob_df.empty:
+                    ob_df.to_csv(
+                        reports_dir / f"order_book_{safe_name}_{timestamp}.csv", index=False
+                    )
+
+            # Logs report
+            if strat_results.get("fills_report") is not None and not strat_results["fills_report"].empty:
+                logs_df = build_logs_dataframe({safe_name: strat_results})
+                if not logs_df.empty:
+                    logs_df.to_csv(
+                        reports_dir / f"backtest_{safe_name}_{timestamp}_logs.csv", index=False
+                    )
 
         st.success(f"CSV reports saved to `reports/` folder (timestamp: {timestamp})")
 

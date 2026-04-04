@@ -1,2 +1,0 @@
-trader_id,strategy_id,instrument_id,account_id,opening_order_id,closing_order_id,entry,side,quantity,peak_qty,ts_init,ts_opened,ts_last,ts_closed,duration_ns,avg_px_open,avg_px_close,commissions,realized_return,realized_pnl,is_snapshot
-BACKTESTER-001,RSIMeanReversionStrategy-000,BTCUSD.CRYPTO,CRYPTO-001,O-20130515-000000-001-000-1,O-20260310-000000-001-000-2,BUY,FLAT,0,1,1368576000000000000,2013-05-15 00:00:00+00:00,1773100800000000000,2026-03-10 00:00:00+00:00,404524800000000000,114.22,69926.92,['70.04 USD'],611.21257,69742.66 USD,False

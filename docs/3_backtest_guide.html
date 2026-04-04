@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3_backtest.py - Complete Guide</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface2: #1c2333;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-muted: #8b949e;
+            --heading: #f0f6fc;
+            --accent: #58a6ff;
+            --accent2: #3fb950;
+            --accent3: #d2a8ff;
+            --accent4: #f97583;
+            --accent5: #ffa657;
+            --code-bg: #0d1117;
+            --code-border: #21262d;
+            --badge-blue: #1f6feb;
+            --badge-green: #238636;
+            --badge-purple: #8957e5;
+            --badge-orange: #d47616;
+            --badge-red: #da3633;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 0;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 300px;
+            height: 100vh;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            padding: 24px 0;
+            z-index: 100;
+        }
+
+        .sidebar-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0 20px;
+            margin-bottom: 16px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 8px 20px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            color: var(--accent);
+            background: rgba(88, 166, 255, 0.05);
+            border-left-color: var(--accent);
+        }
+
+        .sidebar a.section-head {
+            color: var(--heading);
+            font-weight: 600;
+            font-size: 13px;
+            margin-top: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar a.sub { padding-left: 36px; font-size: 13px; }
+
+        /* Main content */
+        .main {
+            margin-left: 300px;
+            max-width: 960px;
+            padding: 48px 48px 120px;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #1a2332 0%, #0d1117 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 48px;
+            margin-bottom: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(88,166,255,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            color: var(--heading);
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-muted);
+            max-width: 600px;
+        }
+
+        .hero .meta {
+            margin-top: 20px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-blue { background: rgba(31,111,235,0.2); color: #79c0ff; }
+        .badge-green { background: rgba(35,134,54,0.2); color: #56d364; }
+        .badge-purple { background: rgba(137,87,229,0.2); color: #d2a8ff; }
+        .badge-orange { background: rgba(212,118,22,0.2); color: #ffa657; }
+
+        /* Section headers */
+        h2 {
+            font-size: 28px;
+            color: var(--heading);
+            margin: 48px 0 8px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h2 .section-num {
+            color: var(--accent);
+            margin-right: 8px;
+        }
+
+        h3 {
+            font-size: 20px;
+            color: var(--heading);
+            margin: 32px 0 12px;
+        }
+
+        h4 {
+            font-size: 16px;
+            color: var(--accent3);
+            margin: 24px 0 8px;
+        }
+
+        p { margin-bottom: 12px; }
+
+        /* Code blocks */
+        pre {
+            background: var(--code-bg);
+            border: 1px solid var(--code-border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            overflow-x: auto;
+            margin: 12px 0 20px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+            font-size: 13px;
+        }
+
+        :not(pre) > code {
+            background: var(--surface2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--accent5);
+        }
+
+        /* Syntax highlighting */
+        .kw { color: #ff7b72; }
+        .fn { color: #d2a8ff; }
+        .str { color: #a5d6ff; }
+        .cm { color: #8b949e; font-style: italic; }
+        .num { color: #79c0ff; }
+        .op { color: #ff7b72; }
+        .cls { color: #ffa657; }
+        .dec { color: #ffa657; }
+        .var { color: #c9d1d9; }
+        .imp { color: #ff7b72; }
+
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 16px 0;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--heading);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        /* Flow diagram */
+        .flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin: 20px 0;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            position: relative;
+        }
+
+        .flow-line {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 40px;
+            flex-shrink: 0;
+        }
+
+        .flow-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--bg);
+            outline: 2px solid var(--accent);
+            z-index: 1;
+            margin-top: 6px;
+        }
+
+        .flow-connector {
+            width: 2px;
+            flex-grow: 1;
+            min-height: 24px;
+            background: var(--border);
+        }
+
+        .flow-content {
+            flex: 1;
+            padding-bottom: 20px;
+        }
+
+        .flow-content h4 {
+            margin: 0 0 4px;
+            font-size: 15px;
+            color: var(--heading);
+        }
+
+        .flow-content p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+
+        th {
+            background: var(--surface2);
+            color: var(--heading);
+            font-weight: 600;
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr:hover td { background: rgba(88,166,255,0.03); }
+
+        /* Callout */
+        .callout {
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 14px;
+            border-left: 4px solid;
+        }
+
+        .callout-info {
+            background: rgba(88,166,255,0.06);
+            border-color: var(--accent);
+        }
+
+        .callout-warn {
+            background: rgba(255,166,87,0.06);
+            border-color: var(--accent5);
+        }
+
+        .callout-success {
+            background: rgba(63,185,80,0.06);
+            border-color: var(--accent2);
+        }
+
+        .callout-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--heading);
+        }
+
+        /* File tree */
+        .file-tree {
+            font-family: 'Cascadia Code', monospace;
+            font-size: 13px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 12px 0;
+        }
+
+        .file-tree .dir { color: var(--accent); }
+        .file-tree .file { color: var(--text); }
+        .file-tree .comment { color: var(--text-muted); }
+
+        /* Strategy cards grid */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .strategy-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: border-color 0.2s;
+        }
+
+        .strategy-card:hover { border-color: var(--accent); }
+
+        .strategy-card h4 {
+            color: var(--heading);
+            margin: 0 0 8px;
+            font-size: 16px;
+        }
+
+        .strategy-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0 0 12px;
+        }
+
+        .strategy-card .params {
+            font-size: 12px;
+            color: var(--accent3);
+        }
+
+        /* Responsive */
+        @media (max-width: 1000px) {
+            .sidebar { display: none; }
+            .main { margin-left: 0; padding: 24px; }
+            .strategy-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Scroll offset for anchors */
+        [id] { scroll-margin-top: 20px; }
+
+        /* Lists */
+        ul, ol {
+            margin: 8px 0 16px 24px;
+        }
+
+        li { margin-bottom: 4px; font-size: 15px; }
+
+        /* Arrows */
+        .arrow-down {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 20px;
+            margin: 8px 0;
+        }
+
+        /* Line reference */
+        .line-ref {
+            color: var(--text-muted);
+            font-size: 12px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar Navigation -->
+<nav class="sidebar">
+    <div class="sidebar-title">Table of Contents</div>
+    <a href="#overview" class="section-head">Overview</a>
+    <a href="#architecture" class="section-head">Architecture</a>
+    <a href="#file-deps" class="sub">File Dependencies</a>
+    <a href="#data-flow" class="sub">Data Flow</a>
+    <a href="#step-by-step" class="section-head">Step-by-Step Walkthrough</a>
+    <a href="#step1-imports" class="sub">1. Imports & Setup</a>
+    <a href="#step2-catalog" class="sub">2. Catalog Loading</a>
+    <a href="#step3-config" class="sub">3. Shared Configuration</a>
+    <a href="#step4-custom" class="sub">4. Custom Strategies</a>
+    <a href="#step5-upload" class="sub">5. Upload Validation</a>
+    <a href="#step6-manage" class="sub">6. Manage Strategies</a>
+    <a href="#step7-registry" class="sub">7. Merged Registry</a>
+    <a href="#step8-select" class="sub">8. Strategy Selection</a>
+    <a href="#step9-params" class="sub">9. Per-Strategy Params</a>
+    <a href="#step10-run" class="sub">10. Run Backtest</a>
+    <a href="#step11-reports" class="sub">11. Report Generation</a>
+    <a href="#step12-display" class="sub">12. Display Results</a>
+    <a href="#strategies" class="section-head">Built-in Strategies</a>
+    <a href="#strat-ema" class="sub">EMA Cross</a>
+    <a href="#strat-rsi" class="sub">RSI Mean Reversion</a>
+    <a href="#strat-bb" class="sub">Bollinger Bands</a>
+    <a href="#strat-4ma" class="sub">4 Moving Averages</a>
+    <a href="#backtest-engine" class="section-head">Backtest Engine</a>
+    <a href="#engine-config" class="sub">Engine Configuration</a>
+    <a href="#engine-execution" class="sub">Execution</a>
+    <a href="#engine-results" class="sub">Result Extraction</a>
+    <a href="#report-gen" class="section-head">Report Generation</a>
+    <a href="#custom-loader" class="section-head">Custom Strategy Loader</a>
+    <a href="#loader-validation" class="sub">Validation Pipeline</a>
+    <a href="#loader-template" class="sub">Strategy Template</a>
+    <a href="#session-state" class="section-head">Session State</a>
+    <a href="#output-files" class="section-head">Output Files</a>
+</nav>
+
+<!-- Main Content -->
+<div class="main">
+
+    <!-- Hero -->
+    <div class="hero" id="overview">
+        <h1>3_backtest.py</h1>
+        <p>Complete guide to the Backtest page of the Crypto Data App &mdash; a Streamlit-based crypto backtesting dashboard built on NautilusTrader.</p>
+        <div class="meta">
+            <span class="badge badge-blue">Streamlit Page</span>
+            <span class="badge badge-green">NautilusTrader</span>
+            <span class="badge badge-purple">382 lines</span>
+            <span class="badge badge-orange">4 Built-in Strategies</span>
+        </div>
+    </div>
+
+    <!-- Overview -->
+    <p>This file is <strong>Page 3</strong> of a multi-page Streamlit application. It allows users to:</p>
+    <ul>
+        <li>Select an instrument/bar type from a pre-loaded data catalog</li>
+        <li>Upload custom trading strategies or choose from 4 built-in ones</li>
+        <li>Configure per-strategy parameters (periods, thresholds, trade size)</li>
+        <li>Run backtests using the NautilusTrader engine</li>
+        <li>View comparison tables, detailed reports, and download HTML/CSV reports</li>
+    </ul>
+
+    <!-- Architecture -->
+    <h2 id="architecture"><span class="section-num">#</span> Architecture</h2>
+
+    <h3 id="file-deps">File Dependencies</h3>
+    <p><code>3_backtest.py</code> orchestrates several core modules:</p>
+
+    <div class="file-tree">
+        <span class="dir">pages/</span><br>
+        &nbsp;&nbsp;<span class="file">3_backtest.py</span> <span class="comment">&larr; This file (UI + orchestration)</span><br><br>
+        <span class="dir">core/</span><br>
+        &nbsp;&nbsp;<span class="file">nautilus_loader.py</span> <span class="comment">&larr; load_catalog() &mdash; loads ParquetDataCatalog</span><br>
+        &nbsp;&nbsp;<span class="file">custom_strategy_loader.py</span> <span class="comment">&larr; validate, load, merge custom strategies</span><br>
+        &nbsp;&nbsp;<span class="file">strategies.py</span> <span class="comment">&larr; 4 built-in strategies + STRATEGY_REGISTRY</span><br>
+        &nbsp;&nbsp;<span class="file">backtest_runner.py</span> <span class="comment">&larr; run_backtest() &mdash; engine wrapper</span><br>
+        &nbsp;&nbsp;<span class="file">report_generator.py</span> <span class="comment">&larr; generate_report() &mdash; HTML report</span><br><br>
+        <span class="dir">docs/</span><br>
+        &nbsp;&nbsp;<span class="file">report_template.html</span> <span class="comment">&larr; Chart.js template for HTML reports</span><br><br>
+        <span class="dir">custom_strategies/</span> <span class="comment">&larr; User-uploaded .py strategy files</span><br>
+        <span class="dir">catalog/</span> <span class="comment">&larr; ParquetDataCatalog (bars + instruments)</span><br>
+        <span class="dir">reports/</span> <span class="comment">&larr; Auto-saved HTML + CSV reports</span>
+    </div>
+
+    <h3 id="data-flow">Data Flow</h3>
+    <div class="flow">
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#58a6ff"></div><div class="flow-connector"></div></div>
+            <div class="flow-content">
+                <h4>1. Load Catalog</h4>
+                <p>Read ParquetDataCatalog from disk &rarr; extract available bar types (e.g. <code>BTCUSD.YAHOO-1-DAY-LAST-EXTERNAL</code>)</p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#d2a8ff"></div><div class="flow-connector"></div></div>
+            <div class="flow-content">
+                <h4>2. Build Strategy Registry</h4>
+                <p>Merge 4 built-in strategies + any validated custom uploads &rarr; unified registry dict</p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#3fb950"></div><div class="flow-connector"></div></div>
+            <div class="flow-content">
+                <h4>3. User Configures</h4>
+                <p>Select bar type, starting capital, strategies, and per-strategy parameters via Streamlit UI</p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#ffa657"></div><div class="flow-connector"></div></div>
+            <div class="flow-content">
+                <h4>4. Run Backtests</h4>
+                <p>For each selected strategy: configure NautilusTrader BacktestEngine &rarr; run &rarr; extract results</p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#f97583"></div><div class="flow-connector"></div></div>
+            <div class="flow-content">
+                <h4>5. Generate Reports</h4>
+                <p>Build HTML report (Chart.js) + auto-save CSV files (positions, fills, account) per strategy</p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#79c0ff"></div></div>
+            <div class="flow-content">
+                <h4>6. Display Results</h4>
+                <p>Show comparison table, download button, per-strategy metrics, positions/fills/account DataFrames</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step-by-Step -->
+    <h2 id="step-by-step"><span class="section-num">#</span> Step-by-Step Walkthrough</h2>
+
+    <!-- Step 1 -->
+    <h3 id="step1-imports">Step 1: Imports & Page Setup <span class="line-ref">Lines 1&ndash;29</span></h3>
+
+    <pre><code><span class="kw">import</span> sys
+<span class="kw">from</span> datetime <span class="kw">import</span> datetime
+<span class="kw">from</span> decimal <span class="kw">import</span> Decimal
+<span class="kw">from</span> pathlib <span class="kw">import</span> Path
+
+<span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">import</span> plotly.graph_objects <span class="kw">as</span> go
+<span class="kw">import</span> streamlit <span class="kw">as</span> st
+
+<span class="cm"># Add project root to sys.path so `core.*` imports work</span>
+sys.path.insert(<span class="num">0</span>, str(Path(__file__).resolve().parent.parent))
+
+<span class="kw">from</span> core.custom_strategy_loader <span class="kw">import</span> (
+    validate_and_load_strategy,
+    get_strategy_template,
+    get_strategy_guidelines,
+    get_merged_registry,
+    sanitize_filename,
+)</code></pre>
+
+    <div class="card">
+        <div class="card-title">What happens here</div>
+        <ul>
+            <li>Standard library and third-party imports are loaded</li>
+            <li>The project root is added to <code>sys.path</code> so <code>core.*</code> modules are importable from the <code>pages/</code> subdirectory</li>
+            <li>Five functions are imported from <code>core/custom_strategy_loader.py</code> &mdash; all related to custom strategy management</li>
+            <li>Streamlit page config is set: title "Run Backtest", icon, wide layout</li>
+        </ul>
+    </div>
+
+    <!-- Step 2 -->
+    <h3 id="step2-catalog">Step 2: Catalog Path & Loading Bar Data <span class="line-ref">Lines 31&ndash;56</span></h3>
+
+    <pre><code><span class="cm"># Default catalog path = project_root/catalog</span>
+<span class="kw">if</span> <span class="str">"catalog_path"</span> <span class="kw">not in</span> st.session_state:
+    st.session_state.catalog_path = str(Path(__file__).resolve().parent.parent / <span class="str">"catalog"</span>)
+
+catalog_path = st.session_state.catalog_path
+custom_strategies_dir = Path(__file__).resolve().parent.parent / <span class="str">"custom_strategies"</span>
+custom_strategies_dir.mkdir(exist_ok=<span class="num">True</span>)
+
+<span class="cm"># Guard: if no catalog exists, stop the page</span>
+<span class="kw">if not</span> Path(catalog_path).exists():
+    st.warning(<span class="str">"No catalog found. Go to Download Data first."</span>)
+    st.stop()
+
+<span class="cm"># Load bar types from catalog</span>
+<span class="kw">from</span> core.nautilus_loader <span class="kw">import</span> load_catalog
+
+catalog = load_catalog(catalog_path)
+all_bars = catalog.bars()
+bar_types = sorted({str(bar.bar_type) <span class="kw">for</span> bar <span class="kw">in</span> all_bars})</code></pre>
+
+    <div class="card">
+        <div class="card-title">What happens here</div>
+        <ol>
+            <li><strong>Catalog path</strong> is read from <code>st.session_state</code> (set globally in app.py) or defaults to <code>./catalog</code></li>
+            <li><strong>custom_strategies/</strong> directory is created if it doesn't exist</li>
+            <li>If the catalog folder doesn't exist, the page shows a warning and <strong>stops</strong> &mdash; the user must load data on Page 1 first</li>
+            <li><code>load_catalog()</code> opens the <code>ParquetDataCatalog</code> and reads all stored bar objects</li>
+            <li>A <strong>deduplicated, sorted set</strong> of bar type strings is extracted (e.g., <code>BTCUSD.YAHOO-1-DAY-LAST-EXTERNAL</code>)</li>
+        </ol>
+    </div>
+
+    <div class="callout callout-info">
+        <div class="callout-title">What is a BarType?</div>
+        A NautilusTrader BarType string encodes: <code>SYMBOL.VENUE-STEP-AGGREGATION-PRICE_TYPE-SOURCE</code>.<br>
+        Example: <code>BTCUSD.YAHOO-1-DAY-LAST-EXTERNAL</code> = BTC/USD on YAHOO venue, 1-day bars, last price, external data.
+    </div>
+
+    <!-- Step 3 -->
+    <h3 id="step3-config">Step 3: Shared Configuration UI <span class="line-ref">Lines 58&ndash;67</span></h3>
+
+    <pre><code>col1, col2 = st.columns(<span class="num">2</span>)
+
+<span class="kw">with</span> col1:
+    selected_bar_type = st.selectbox(<span class="str">"Select Instrument / Bar Type"</span>, bar_types)
+
+<span class="kw">with</span> col2:
+    starting_capital = st.number_input(
+        <span class="str">"Starting Capital ($)"</span>,
+        value=<span class="num">100_000.0</span>, min_value=<span class="num">1000.0</span>, step=<span class="num">10_000.0</span>
+    )</code></pre>
+
+    <div class="card">
+        <div class="card-title">UI Components</div>
+        <table>
+            <tr><th>Widget</th><th>Variable</th><th>Purpose</th></tr>
+            <tr><td><code>st.selectbox</code></td><td><code>selected_bar_type</code></td><td>Choose which instrument + timeframe to backtest</td></tr>
+            <tr><td><code>st.number_input</code></td><td><code>starting_capital</code></td><td>Initial account balance in USD (default $100,000)</td></tr>
+        </table>
+        <p>These settings are <strong>shared across all strategies</strong> &mdash; every strategy in the backtest uses the same instrument and starting capital.</p>
+    </div>
+
+    <!-- Step 4 -->
+    <h3 id="step4-custom">Step 4: Custom Strategy Section <span class="line-ref">Lines 69&ndash;83</span></h3>
+
+    <pre><code>upload_col, template_col = st.columns(<span class="num">2</span>)
+
+<span class="kw">with</span> upload_col:
+    uploaded_file = st.file_uploader(
+        <span class="str">"Upload a custom strategy (.py)"</span>, type=[<span class="str">"py"</span>]
+    )
+
+<span class="kw">with</span> template_col:
+    st.download_button(
+        label=<span class="str">"Download Strategy Template"</span>,
+        data=get_strategy_template(),
+        file_name=<span class="str">"custom_strategy_template.py"</span>,
+    )</code></pre>
+
+    <div class="card">
+        <div class="card-title">Two-column layout</div>
+        <ul>
+            <li><strong>Left column:</strong> File uploader that accepts only <code>.py</code> files</li>
+            <li><strong>Right column:</strong> Download button that provides a fully-commented strategy template (generated by <code>get_strategy_template()</code> which returns a ~160-line Python template string)</li>
+        </ul>
+    </div>
+
+    <!-- Step 5 -->
+    <h3 id="step5-upload">Step 5: Upload Validation Pipeline <span class="line-ref">Lines 85&ndash;131</span></h3>
+
+    <p>When a file is uploaded, a multi-phase validation process runs:</p>
+
+    <div class="flow">
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#58a6ff"></div><div class="flow-connector"></div></div>
+            <div class="flow-content">
+                <h4>Sanitize Filename</h4>
+                <p><code>sanitize_filename()</code> strips unsafe characters &rarr; keeps only <code>[a-zA-Z0-9_\-.]</code>, collapses multiple underscores</p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#d2a8ff"></div><div class="flow-connector"></div></div>
+            <div class="flow-content">
+                <h4>Save to Disk</h4>
+                <p>File bytes are written to <code>custom_strategies/{safe_name}.py</code></p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#3fb950"></div><div class="flow-connector"></div></div>
+            <div class="flow-content">
+                <h4>Validate & Load</h4>
+                <p><code>validate_and_load_strategy()</code> runs 6-phase validation (see <a href="#custom-loader">Custom Strategy Loader</a> section)</p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#ffa657"></div><div class="flow-connector"></div></div>
+            <div class="flow-content">
+                <h4>Duplicate Name Check</h4>
+                <p>Iterates all other <code>.py</code> files in <code>custom_strategies/</code> to check if any share the same <code>STRATEGY_NAME</code></p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#f97583"></div></div>
+            <div class="flow-content">
+                <h4>Success or Cleanup</h4>
+                <p>On success: show green message. On failure: <strong>delete the file</strong> and show error. Prevents invalid strategies from persisting.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout callout-warn">
+        <div class="callout-title">File Replacement</div>
+        If a file with the same name already exists, it is <strong>overwritten</strong> and a warning is shown: "Replaced existing file: {name}".
+    </div>
+
+    <!-- Step 6 -->
+    <h3 id="step6-manage">Step 6: Manage Existing Custom Strategies <span class="line-ref">Lines 133&ndash;148</span></h3>
+
+    <pre><code>custom_files = sorted(
+    f <span class="kw">for</span> f <span class="kw">in</span> custom_strategies_dir.glob(<span class="str">"*.py"</span>)
+    <span class="kw">if not</span> f.name.startswith(<span class="str">"__"</span>)
+)
+
+<span class="kw">if</span> custom_files:
+    <span class="kw">with</span> st.expander(f<span class="str">"Manage Custom Strategies ({len(custom_files)} loaded)"</span>):
+        <span class="kw">for</span> cf <span class="kw">in</span> custom_files:
+            col_name, col_btn = st.columns([<span class="num">4</span>, <span class="num">1</span>])
+            <span class="kw">with</span> col_name:
+                st.text(cf.name)
+            <span class="kw">with</span> col_btn:
+                <span class="kw">if</span> st.button(<span class="str">"Delete"</span>, key=f<span class="str">"delete_{cf.name}"</span>):
+                    cf.unlink()
+                    st.rerun()</code></pre>
+
+    <div class="card">
+        <div class="card-title">What happens here</div>
+        <ul>
+            <li>Lists all <code>.py</code> files in <code>custom_strategies/</code> (excluding <code>__init__.py</code> etc.)</li>
+            <li>Shows an expandable panel with each file name and a <strong>Delete</strong> button</li>
+            <li>Deleting a file calls <code>cf.unlink()</code> then <code>st.rerun()</code> to refresh the page</li>
+        </ul>
+    </div>
+
+    <!-- Step 7 -->
+    <h3 id="step7-registry">Step 7: Build Merged Registry <span class="line-ref">Lines 150&ndash;153</span></h3>
+
+    <pre><code>merged_registry, load_warnings = get_merged_registry(custom_strategies_dir)
+<span class="kw">for</span> warn <span class="kw">in</span> load_warnings:
+    st.warning(warn)</code></pre>
+
+    <div class="card">
+        <div class="card-title">How <code>get_merged_registry()</code> works</div>
+        <ol>
+            <li>Starts with a copy of <code>STRATEGY_REGISTRY</code> (4 built-in strategies)</li>
+            <li>Calls <code>load_all_custom_strategies()</code> which validates every <code>.py</code> file in the custom directory</li>
+            <li>If a custom strategy name collides with a built-in, it gets prefixed with <code>"(Custom) "</code></li>
+            <li>Returns the merged dict + any warnings (validation failures, duplicates, permission errors)</li>
+        </ol>
+    </div>
+
+    <div class="callout callout-info">
+        <div class="callout-title">Registry Structure</div>
+        Each entry in the registry is a dict:
+        <pre><code>{
+    <span class="str">"strategy_class"</span>: EMACrossStrategy,    <span class="cm"># The class to instantiate</span>
+    <span class="str">"config_class"</span>: EMACrossConfig,        <span class="cm"># The config class</span>
+    <span class="str">"description"</span>: <span class="str">"Buy when fast EMA..."</span>, <span class="cm"># Shown as caption</span>
+    <span class="str">"params"</span>: {                            <span class="cm"># UI parameter definitions</span>
+        <span class="str">"fast_ema_period"</span>: {
+            <span class="str">"label"</span>: <span class="str">"Fast EMA Period"</span>,
+            <span class="str">"min"</span>: <span class="num">2</span>, <span class="str">"max"</span>: <span class="num">100</span>, <span class="str">"default"</span>: <span class="num">10</span>
+        }, ...
+    }
+}</code></pre>
+    </div>
+
+    <!-- Step 8 -->
+    <h3 id="step8-select">Step 8: Strategy Selection <span class="line-ref">Lines 155&ndash;167</span></h3>
+
+    <pre><code>registry_keys = list(merged_registry.keys())
+selected_strategies = st.multiselect(
+    <span class="str">"Choose one or more strategies to backtest"</span>,
+    registry_keys,
+    default=[registry_keys[<span class="num">0</span>]] <span class="kw">if</span> registry_keys <span class="kw">else</span> [],
+)
+
+<span class="kw">if not</span> selected_strategies:
+    st.info(<span class="str">"Select at least one strategy to continue."</span>)
+    st.stop()</code></pre>
+
+    <div class="card">
+        <div class="card-title">What happens here</div>
+        <ul>
+            <li>A <code>st.multiselect</code> widget lets the user pick <strong>one or more</strong> strategies from the merged registry</li>
+            <li>Default pre-selects the first strategy in the list</li>
+            <li>If nothing is selected, the page stops with an info message &mdash; no further UI renders below</li>
+        </ul>
+    </div>
+
+    <!-- Step 9 -->
+    <h3 id="step9-params">Step 9: Per-Strategy Parameter Configuration <span class="line-ref">Lines 169&ndash;222</span></h3>
+
+    <pre><code>strategy_configs = {}
+
+<span class="kw">for</span> strategy_name <span class="kw">in</span> selected_strategies:
+    <span class="kw">with</span> st.expander(f<span class="str">"**{strategy_name}**"</span>, expanded=<span class="num">True</span>):
+        st.caption(merged_registry[strategy_name][<span class="str">"description"</span>])
+
+        <span class="cm"># Trade size per strategy</span>
+        trade_size = st.number_input(<span class="str">"Trade Size (units)"</span>, ...)
+
+        <span class="cm"># Dynamic parameter widgets based on type</span>
+        params = merged_registry[strategy_name][<span class="str">"params"</span>]
+        <span class="kw">for</span> param_key, param_info <span class="kw">in</span> params.items():
+            <span class="kw">if</span> isinstance(param_info[<span class="str">"default"</span>], <span class="cls">bool</span>):
+                <span class="cm"># &rarr; st.checkbox</span>
+            <span class="kw">elif</span> isinstance(param_info[<span class="str">"default"</span>], <span class="cls">float</span>):
+                <span class="cm"># &rarr; st.number_input with step=0.5</span>
+            <span class="kw">else</span>:
+                <span class="cm"># &rarr; st.number_input with step=1 (integers)</span>
+
+        strategy_configs[strategy_name] = {
+            <span class="str">"params"</span>: strategy_params,
+            <span class="str">"trade_size"</span>: trade_size,
+        }</code></pre>
+
+    <div class="card">
+        <div class="card-title">Dynamic UI Generation Logic</div>
+        <table>
+            <tr><th>Param Type</th><th>Widget</th><th>Step</th><th>Range</th></tr>
+            <tr><td><code>bool</code></td><td><code>st.checkbox</code></td><td>N/A</td><td>N/A</td></tr>
+            <tr><td><code>float</code></td><td><code>st.number_input</code></td><td>0.5</td><td><code>[min, max]</code></td></tr>
+            <tr><td><code>int</code></td><td><code>st.number_input</code></td><td>1</td><td><code>[min, max]</code></td></tr>
+        </table>
+        <p>Parameters are displayed in columns &mdash; one column per parameter. Each widget uses a unique <code>key</code> scoped to the strategy name to avoid Streamlit ID conflicts.</p>
+    </div>
+
+    <!-- Step 10 -->
+    <h3 id="step10-run">Step 10: Run Backtest <span class="line-ref">Lines 224&ndash;265</span></h3>
+
+    <pre><code>run_btn = st.button(<span class="str">"&#x1F680; Run Backtest"</span>, type=<span class="str">"primary"</span>, use_container_width=<span class="num">True</span>)
+
+<span class="kw">if</span> run_btn:
+    <span class="kw">from</span> core.backtest_runner <span class="kw">import</span> run_backtest
+
+    all_results = {}
+    progress = st.progress(<span class="num">0</span>, text=<span class="str">"Starting backtests..."</span>)
+
+    <span class="kw">for</span> idx, strategy_name <span class="kw">in</span> enumerate(selected_strategies):
+        cfg = strategy_configs[strategy_name]
+        progress.progress(idx / len(selected_strategies), text=f<span class="str">"Running {strategy_name}..."</span>)
+
+        results = run_backtest(
+            catalog_path=catalog_path,
+            bar_type_str=selected_bar_type,
+            strategy_name=strategy_name,
+            strategy_params=cfg[<span class="str">"params"</span>],
+            trade_size=cfg[<span class="str">"trade_size"</span>],
+            starting_capital=starting_capital,
+            registry=merged_registry,
+        )
+        all_results[strategy_name] = results
+
+    progress.progress(<span class="num">1.0</span>, text=<span class="str">"All backtests complete!"</span>)</code></pre>
+
+    <div class="card">
+        <div class="card-title">Execution Flow</div>
+        <ol>
+            <li><code>run_backtest</code> is imported <strong>lazily</strong> (only when the button is clicked) to avoid loading NautilusTrader on every page render</li>
+            <li>Strategies run <strong>sequentially</strong> with a progress bar showing current strategy index</li>
+            <li>Each call to <code>run_backtest()</code> creates a fresh <code>BacktestEngine</code>, runs it, and returns a results dict</li>
+            <li>Errors are caught per-strategy &mdash; one failure doesn't stop other strategies from running</li>
+            <li>Results are stored in <code>all_results</code> dict keyed by strategy name</li>
+        </ol>
+    </div>
+
+    <div class="callout callout-success">
+        <div class="callout-title">What <code>run_backtest()</code> does internally</div>
+        See the <a href="#backtest-engine">Backtest Engine</a> section below for the full breakdown of the engine configuration and execution.
+    </div>
+
+    <!-- Step 11 -->
+    <h3 id="step11-reports">Step 11: Report Generation & Auto-Save <span class="line-ref">Lines 267&ndash;309</span></h3>
+
+    <pre><code><span class="cm"># Generate HTML report</span>
+<span class="kw">from</span> core.report_generator <span class="kw">import</span> generate_report
+
+raw_name = f<span class="str">"{selected_bar_type.split('.')[0]}_{'_'.join(selected_strategies)}"</span>
+backtest_name = sanitize_filename(raw_name)
+report_html = generate_report(all_results, backtest_name=backtest_name)
+
+<span class="cm"># Save HTML report to reports/ directory</span>
+report_path = reports_dir / f<span class="str">"{backtest_name}_report.html"</span>
+report_path.write_text(report_html, encoding=<span class="str">"utf-8"</span>)
+
+<span class="cm"># Auto-save CSV reports per strategy with timestamp</span>
+timestamp = datetime.now().strftime(<span class="str">"%d_%B_%Y"</span>).lower()
+<span class="kw">for</span> strat_name, strat_results <span class="kw">in</span> all_results.items():
+    <span class="cm"># Save: position_report_{name}_{timestamp}.csv</span>
+    <span class="cm"># Save: order_fill_report_{name}_{timestamp}.csv</span>
+    <span class="cm"># Save: account_report_{name}_{timestamp}.csv</span>
+    <span class="cm"># Save: order_book_{name}_{timestamp}.csv</span>
+    <span class="cm"># Save: backtest_{name}_{timestamp}_logs.csv</span></code></pre>
+
+    <div class="card">
+        <div class="card-title">Reports Generated</div>
+        <table>
+            <tr><th>Report</th><th>Format</th><th>Filename Pattern</th></tr>
+            <tr><td>Main Report</td><td>HTML</td><td><code>{backtest_name}_report.html</code></td></tr>
+            <tr><td>Positions</td><td>CSV</td><td><code>position_report_{strategy}_{timestamp}.csv</code></td></tr>
+            <tr><td>Order Fills</td><td>CSV</td><td><code>order_fill_report_{strategy}_{timestamp}.csv</code></td></tr>
+            <tr><td>Account</td><td>CSV</td><td><code>account_report_{strategy}_{timestamp}.csv</code></td></tr>
+            <tr><td>Order Book</td><td>CSV</td><td><code>order_book_{strategy}_{timestamp}.csv</code></td></tr>
+            <tr><td>Logs</td><td>CSV</td><td><code>backtest_{strategy}_{timestamp}_logs.csv</code></td></tr>
+        </table>
+        <p>Timestamp format: <code>02_april_2026</code> (day_monthname_year, lowercase).</p>
+        <p>The account report has special handling: columns containing <code>dict</code> or <code>list</code> values are cast to strings before CSV export.</p>
+        <p>The order book report contains the full trade ledger with columns: USERID, SYMBOL, EXCHANGE, TRANSACTION, QUANTITY, LOTS, MULTIPLIER, OrderID, ENTRY TIME, ENTRY PRICE, ENTRY REASON, OPTION TYPE, STRIKE, PORTFOLIO NAME, STRATEGY, EXIT TIME, AVG EXIT PRICE, EXIT REASON, PNL, _IS_HEDGE, _PARENT_ID.</p>
+        <p>The logs report contains trading event logs with columns: Timestamp, Backtest_Timestamp, Log Type, Message, UserID, Strategy Tag, Option Portfolio, Strike.</p>
+    </div>
+
+    <!-- Step 12 -->
+    <h3 id="step12-display">Step 12: Display Results <span class="line-ref">Lines 311&ndash;382</span></h3>
+
+    <p>Results display persists across reruns via <code>st.session_state["backtest_results"]</code>.</p>
+
+    <h4>12a. Comparison Table</h4>
+    <pre><code>comparison_data = []
+<span class="kw">for</span> name, results <span class="kw">in</span> all_results.items():
+    comparison_data.append({
+        <span class="str">"Strategy"</span>: name,
+        <span class="str">"Starting Capital"</span>: f<span class="str">"${results['starting_capital']:,.2f}"</span>,
+        <span class="str">"Final Balance"</span>: ...,
+        <span class="str">"Total P&L"</span>: ...,
+        <span class="str">"Return %"</span>: ...,
+        <span class="str">"Trades"</span>: ..., <span class="str">"Win Rate"</span>: ...,
+        <span class="str">"Wins"</span>: ..., <span class="str">"Losses"</span>: ...,
+    })
+st.dataframe(pd.DataFrame(comparison_data))</code></pre>
+
+    <h4>12b. HTML Report Download</h4>
+    <p>A <code>st.download_button</code> lets the user download the full HTML report (self-contained with Chart.js).</p>
+
+    <h4>12c. Per-Strategy Detail Expanders</h4>
+    <p>For each strategy, an expandable section shows:</p>
+    <ul>
+        <li><strong>6 metric cards:</strong> Starting Capital, Final Balance, Total P&amp;L (with delta), Total Trades, Win Rate, Wins/Losses</li>
+        <li><strong>Positions Report:</strong> DataTable of all closed positions with entry/exit prices, P&amp;L</li>
+        <li><strong>Order Fills Report:</strong> DataTable of all executed orders (scrollable, max height 400px)</li>
+        <li><strong>Account Report:</strong> Balance history over time (with nested objects stringified for display)</li>
+    </ul>
+
+    <!-- Strategies -->
+    <h2 id="strategies"><span class="section-num">#</span> Built-in Strategies</h2>
+
+    <p>All strategies are defined in <code>core/strategies.py</code> and follow the same pattern: a frozen <code>StrategyConfig</code> subclass + a <code>Strategy</code> subclass with <code>on_start</code>, <code>on_bar</code>, <code>on_stop</code> methods.</p>
+
+    <div class="strategy-grid">
+        <div class="strategy-card" id="strat-ema">
+            <h4>EMA Cross</h4>
+            <p>Buy when fast EMA crosses above slow EMA; sell when it crosses below. Classic trend-following strategy.</p>
+            <div class="params">
+                <strong>Params:</strong> fast_ema_period (2&ndash;100, default 10), slow_ema_period (5&ndash;200, default 20)
+            </div>
+            <pre style="margin-top:12px"><code><span class="cm"># Trading logic (on_bar):</span>
+<span class="kw">if</span> fast_ema.value >= slow_ema.value:
+    <span class="cm"># BUY signal (close short if any, open long)</span>
+<span class="kw">elif</span> fast_ema.value < slow_ema.value:
+    <span class="cm"># SELL signal (close long if any, open short)</span></code></pre>
+        </div>
+
+        <div class="strategy-card" id="strat-rsi">
+            <h4>RSI Mean Reversion</h4>
+            <p>Buy when RSI drops to oversold levels; sell when RSI reaches overbought. Contrarian reversal strategy.</p>
+            <div class="params">
+                <strong>Params:</strong> rsi_period (2&ndash;50, default 14), overbought (50&ndash;95, default 70), oversold (5&ndash;50, default 30)
+            </div>
+            <pre style="margin-top:12px"><code><span class="cm"># Trading logic (on_bar):</span>
+<span class="kw">if</span> rsi.value <= config.oversold:
+    <span class="cm"># BUY signal</span>
+<span class="kw">elif</span> rsi.value >= config.overbought:
+    <span class="cm"># SELL signal</span></code></pre>
+        </div>
+
+        <div class="strategy-card" id="strat-bb">
+            <h4>Bollinger Bands</h4>
+            <p>Buy at lower band; sell at upper band. Band-based mean reversion assuming price stays within bands.</p>
+            <div class="params">
+                <strong>Params:</strong> bb_period (5&ndash;100, default 20), bb_std (0.5&ndash;4.0, default 2.0)
+            </div>
+            <pre style="margin-top:12px"><code><span class="cm"># Trading logic (on_bar):</span>
+<span class="kw">if</span> close <= bb.lower:
+    <span class="cm"># BUY signal</span>
+<span class="kw">elif</span> close >= bb.upper:
+    <span class="cm"># SELL signal</span></code></pre>
+        </div>
+
+        <div class="strategy-card" id="strat-4ma">
+            <h4>4 Moving Averages</h4>
+            <p>Buy when all 4 MAs align bullish (MA1 &gt; MA2 &gt; MA3 &gt; MA4); sell on bearish alignment. Supports SMA/EMA toggle.</p>
+            <div class="params">
+                <strong>Params:</strong> use_ema (bool), ma1 (5), ma2 (10), ma3 (20), ma4 (50)
+            </div>
+            <pre style="margin-top:12px"><code><span class="cm"># Trading logic (on_bar):</span>
+<span class="kw">if</span> v1 > v2 > v3 > v4:
+    <span class="cm"># BUY signal (full bullish alignment)</span>
+<span class="kw">elif</span> v1 < v2 < v3 < v4:
+    <span class="cm"># SELL signal (full bearish alignment)</span></code></pre>
+        </div>
+    </div>
+
+    <div class="callout callout-info">
+        <div class="callout-title">Common Strategy Pattern</div>
+        All strategies share identical position management logic:
+        <ul style="margin-top:8px">
+            <li>If <strong>flat</strong> (no position): open a new position in the signal direction</li>
+            <li>If <strong>opposite position</strong> exists: close it first, then open the new one</li>
+            <li>If <strong>same direction</strong>: do nothing (already in the right position)</li>
+            <li>On stop: cancel all orders + close all positions</li>
+        </ul>
+    </div>
+
+    <!-- Backtest Engine -->
+    <h2 id="backtest-engine"><span class="section-num">#</span> Backtest Engine (<code>backtest_runner.py</code>)</h2>
+
+    <h3 id="engine-config">Engine Configuration</h3>
+
+    <pre><code><span class="cm"># Core engine setup</span>
+engine_config = BacktestEngineConfig(
+    trader_id=TraderId(<span class="str">"BACKTESTER-001"</span>),
+    logging=LoggingConfig(log_level=<span class="str">"WARNING"</span>),
+)
+engine = BacktestEngine(config=engine_config)
+
+<span class="cm"># Venue setup</span>
+engine.add_venue(
+    venue=venue,                                    <span class="cm"># e.g. Venue("YAHOO")</span>
+    oms_type=OmsType.NETTING,                       <span class="cm"># Position-based (not order-based)</span>
+    account_type=AccountType.MARGIN,                <span class="cm"># Margin account</span>
+    starting_balances=[Money(starting_capital, USD)],<span class="cm"># e.g. $100,000</span>
+    base_currency=USD,
+    default_leverage=Decimal(<span class="num">1</span>),                    <span class="cm"># No leverage</span>
+)
+
+<span class="cm"># Add instrument + bar data + strategy</span>
+engine.add_instrument(instrument)
+engine.add_data(bars)
+engine.add_strategy(strategy)</code></pre>
+
+    <div class="card">
+        <div class="card-title">Configuration Details</div>
+        <table>
+            <tr><th>Setting</th><th>Value</th><th>Meaning</th></tr>
+            <tr><td>Trader ID</td><td><code>BACKTESTER-001</code></td><td>Identifier for the simulated trader</td></tr>
+            <tr><td>Log Level</td><td><code>WARNING</code></td><td>Suppresses verbose debug output</td></tr>
+            <tr><td>OMS Type</td><td><code>NETTING</code></td><td>One position per instrument (net long/short)</td></tr>
+            <tr><td>Account Type</td><td><code>MARGIN</code></td><td>Allows short selling</td></tr>
+            <tr><td>Leverage</td><td><code>1x</code></td><td>No leverage (1:1)</td></tr>
+        </table>
+    </div>
+
+    <h3 id="engine-execution">Execution</h3>
+
+    <pre><code><span class="cm"># Strategy config is built dynamically from the registry</span>
+config_kwargs = {
+    <span class="str">"instrument_id"</span>: instrument_id,  <span class="cm"># From bar_type string</span>
+    <span class="str">"bar_type"</span>: bar_type,              <span class="cm"># Parsed BarType object</span>
+    <span class="str">"trade_size"</span>: Decimal(str(trade_size)),
+    **strategy_params,                <span class="cm"># User-configured params</span>
+}
+strategy_config = config_class(**config_kwargs)
+strategy = strategy_class(strategy_config)
+
+engine.add_strategy(strategy)
+engine.run()          <span class="cm"># Process all bars &rarr; trigger on_bar() callbacks</span>
+engine.trader.stop()  <span class="cm"># Trigger on_stop() &rarr; close remaining positions</span></code></pre>
+
+    <h3 id="engine-results">Result Extraction</h3>
+
+    <p>The <code>_extract_results()</code> function uses a <strong>3-tier fallback</strong> system for counting wins/losses:</p>
+
+    <div class="flow">
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#3fb950"></div><div class="flow-connector"></div></div>
+            <div class="flow-content">
+                <h4>Tier 1: Positions Report</h4>
+                <p>Parse <code>realized_pnl</code> column from <code>generate_positions_report()</code>. Handles NautilusTrader's "150.00 USD" string format by splitting on whitespace.</p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#ffa657"></div><div class="flow-connector"></div></div>
+            <div class="flow-content">
+                <h4>Tier 2: Cache Positions</h4>
+                <p>If positions report was empty, iterate closed positions from <code>engine.kernel.cache.positions()</code> and read <code>pos.realized_pnl</code>.</p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#f97583"></div></div>
+            <div class="flow-content">
+                <h4>Tier 3: Fills Estimate</h4>
+                <p>Last resort: estimate trades as <code>total_orders // 2</code> and assign single win or loss based on total P&amp;L sign.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Return Value Structure</div>
+        <pre><code>{
+    <span class="str">"starting_capital"</span>: <span class="num">100000.0</span>,
+    <span class="str">"final_balance"</span>: <span class="num">115432.50</span>,
+    <span class="str">"total_pnl"</span>: <span class="num">15432.50</span>,
+    <span class="str">"total_return_pct"</span>: <span class="num">15.43</span>,
+    <span class="str">"total_orders"</span>: <span class="num">48</span>,
+    <span class="str">"total_trades"</span>: <span class="num">24</span>,
+    <span class="str">"wins"</span>: <span class="num">15</span>,
+    <span class="str">"losses"</span>: <span class="num">9</span>,
+    <span class="str">"win_rate"</span>: <span class="num">62.5</span>,
+    <span class="str">"fills_report"</span>: DataFrame | <span class="num">None</span>,
+    <span class="str">"positions_report"</span>: DataFrame | <span class="num">None</span>,
+    <span class="str">"account_report"</span>: DataFrame | <span class="num">None</span>,
+}</code></pre>
+    </div>
+
+    <!-- Report Generation -->
+    <h2 id="report-gen"><span class="section-num">#</span> Report Generation (<code>report_generator.py</code>)</h2>
+
+    <pre><code><span class="kw">def</span> <span class="fn">generate_report</span>(all_results, backtest_name, template_path):
+    <span class="cm"># 1. Read HTML template from docs/report_template.html</span>
+    <span class="cm"># 2. Build ORDERBOOK (trade list) from positions reports</span>
+    <span class="cm"># 3. Build SUMMARY (per-date cumulative P&L)</span>
+    <span class="cm"># 4. Replace template placeholders with JSON data</span>
+    <span class="cm"># 5. Return self-contained HTML string</span></code></pre>
+
+    <div class="card">
+        <div class="card-title">Template Substitution</div>
+        <table>
+            <tr><th>Placeholder</th><th>Data</th></tr>
+            <tr><td><code>{{ ORDERBOOK_JSON }}</code></td><td>Array of trade objects (symbol, side, entry/exit price, P&amp;L, timestamps)</td></tr>
+            <tr><td><code>{{ SUMMARY_JSON }}</code></td><td>Per-date cumulative P&amp;L with max/min values</td></tr>
+            <tr><td><code>{{ LOGS_JSON }}</code></td><td>Empty array (reserved for future use)</td></tr>
+            <tr><td><code>{{BACKTEST_NAME}}</code></td><td>The sanitized backtest name string</td></tr>
+        </table>
+    </div>
+
+    <p>The <code>_build_orderbook()</code> function handles NautilusTrader's inconsistent column naming by trying multiple candidates for each field:</p>
+
+    <pre><code><span class="cm"># Column resolution examples:</span>
+col_instrument = _resolve_column(df, [<span class="str">"instrument_id"</span>, <span class="str">"InstrumentId"</span>, <span class="str">"instrument"</span>])
+col_pnl = _resolve_column(df, [<span class="str">"realized_pnl"</span>, <span class="str">"RealizedPnl"</span>, <span class="str">"realized_return"</span>, <span class="str">"pnl"</span>])
+col_ts_open = _resolve_column(df, [<span class="str">"ts_opened"</span>, <span class="str">"TsOpened"</span>, <span class="str">"opened_time"</span>, <span class="str">"ts_init"</span>])</code></pre>
+
+    <!-- Custom Strategy Loader -->
+    <h2 id="custom-loader"><span class="section-num">#</span> Custom Strategy Loader (<code>custom_strategy_loader.py</code>)</h2>
+
+    <h3 id="loader-validation">6-Phase Validation Pipeline</h3>
+
+    <div class="flow">
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#58a6ff"></div><div class="flow-connector"></div></div>
+            <div class="flow-content">
+                <h4>Phase 1: File Checks</h4>
+                <p>File exists? Not empty?</p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#d2a8ff"></div><div class="flow-connector"></div></div>
+            <div class="flow-content">
+                <h4>Phase 2: Module Loading</h4>
+                <p>Dynamically import with <code>importlib.util</code>. Catches <code>SyntaxError</code>, <code>ImportError</code>.</p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#3fb950"></div><div class="flow-connector"></div></div>
+            <div class="flow-content">
+                <h4>Phase 3: Required Exports</h4>
+                <p>Must have: <code>STRATEGY_NAME</code>, <code>STRATEGY_CLASS</code>, <code>CONFIG_CLASS</code>, <code>DESCRIPTION</code>, <code>PARAMS</code></p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#ffa657"></div><div class="flow-connector"></div></div>
+            <div class="flow-content">
+                <h4>Phase 4: Type Checks</h4>
+                <p><code>STRATEGY_NAME</code>: str (max 100 chars), <code>CONFIG_CLASS</code>: subclass of <code>StrategyConfig</code>, <code>STRATEGY_CLASS</code>: subclass of <code>Strategy</code></p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#f97583"></div><div class="flow-connector"></div></div>
+            <div class="flow-content">
+                <h4>Phase 5: Config & Method Validation</h4>
+                <p>Config must have <code>instrument_id</code>, <code>bar_type</code>, <code>trade_size</code> fields. Strategy must define <code>on_start()</code>, <code>on_bar()</code>, <code>on_stop()</code>.</p>
+            </div>
+        </div>
+        <div class="flow-step">
+            <div class="flow-line"><div class="flow-dot" style="background:#79c0ff"></div></div>
+            <div class="flow-content">
+                <h4>Phase 6: PARAMS Validation</h4>
+                <p>Each param needs <code>label</code> + <code>default</code>. Numeric params need <code>min</code>/<code>max</code>. Defaults must be in range. Keys must match CONFIG_CLASS fields.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout callout-warn">
+        <div class="callout-title">Error Collection</div>
+        Phases 3&ndash;6 collect <strong>all</strong> errors before raising a single <code>ValueError</code>. This means the user sees every problem at once instead of fixing them one at a time.
+    </div>
+
+    <h3 id="loader-template">Strategy Template</h3>
+    <p><code>get_strategy_template()</code> returns a complete, well-commented Python file (~160 lines) that includes:</p>
+    <ul>
+        <li>A sample <code>MyStrategyConfig</code> class with required + custom fields</li>
+        <li>A sample <code>MyStrategy</code> class with all required methods implemented</li>
+        <li>All 5 required exports at the bottom</li>
+        <li>A complete <code>PARAMS</code> dict demonstrating int, float, and bool parameter types</li>
+        <li>Inline comments explaining every section</li>
+    </ul>
+
+    <!-- Session State -->
+    <h2 id="session-state"><span class="section-num">#</span> Session State Keys</h2>
+
+    <table>
+        <tr><th>Key</th><th>Type</th><th>Set By</th><th>Purpose</th></tr>
+        <tr><td><code>catalog_path</code></td><td><code>str</code></td><td>app.py / this page</td><td>Path to ParquetDataCatalog directory</td></tr>
+        <tr><td><code>backtest_results</code></td><td><code>dict</code></td><td>After run</td><td>Strategy name &rarr; results dict (persists across reruns)</td></tr>
+        <tr><td><code>backtest_config</code></td><td><code>dict</code></td><td>After run</td><td>Bar type + strategy configs used in last run</td></tr>
+        <tr><td><code>backtest_report_html</code></td><td><code>str</code></td><td>After run</td><td>Full HTML report string for download</td></tr>
+        <tr><td><code>backtest_report_name</code></td><td><code>str</code></td><td>After run</td><td>Sanitized report filename</td></tr>
+    </table>
+
+    <div class="callout callout-info">
+        <div class="callout-title">Persistence</div>
+        Results persist in <code>st.session_state</code> so users can navigate to other pages (e.g., Page 4: Tearsheet) and return to see the same results without re-running.
+    </div>
+
+    <!-- Output Files -->
+    <h2 id="output-files"><span class="section-num">#</span> Output Files</h2>
+
+    <div class="file-tree">
+        <span class="dir">reports/</span><br>
+        &nbsp;&nbsp;<span class="file">BTCUSD_EMA_Cross_RSI_Mean_Reversion_report.html</span><br>
+        &nbsp;&nbsp;<span class="comment">&uarr; Self-contained HTML with Chart.js visualizations</span><br><br>
+        &nbsp;&nbsp;<span class="file">position_report_EMA_Cross_20260402_121150.csv</span><br>
+        &nbsp;&nbsp;<span class="comment">&uarr; Closed positions: symbol, side, qty, entry/exit price, P&L</span><br><br>
+        &nbsp;&nbsp;<span class="file">order_fill_report_EMA_Cross_20260402_121150.csv</span><br>
+        &nbsp;&nbsp;<span class="comment">&uarr; Every executed order: instrument, side, type, quantity, price, ts</span><br><br>
+        &nbsp;&nbsp;<span class="file">account_report_EMA_Cross_20260402_121150.csv</span><br>
+        &nbsp;&nbsp;<span class="comment">&uarr; Account balance snapshots over time</span>
+    </div>
+
+    <p style="margin-top:32px; color:var(--text-muted); font-size:13px; text-align:center;">
+        Generated for <strong>crypto-data-app</strong> &mdash; 3_backtest.py complete guide
+    </p>
+
+</div>
+
+</body>
+</html>

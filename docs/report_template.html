@@ -1330,15 +1330,20 @@
                         let baseKey = null;
                         if (t['OrderID'] && Object.keys(pfLegStats).length > 0) {
                             const orderId = t['OrderID'];
-                            const sortedKeys = Object.keys(pfLegStats).sort((a, b) => b.length - a.length);
-                             for (const k of sortedKeys) {
-                                 // New format: portfolio_[H]execid_epoch, Old format: PORTFOLIO_LEGID_EXECID
-                                 if (orderId.endsWith('_' + k) || orderId.includes('_' + k + '_') || orderId.includes('_H' + k + '_')) {
-                                     execKey = k;
-                                     baseKey = k.replace(/\.\d+$/, '');
-                                     break;
+                            // Direct match (NautilusTrader / crypto order IDs)
+                            if (pfLegStats[orderId]) {
+                                execKey = orderId;
+                            } else {
+                                const sortedKeys = Object.keys(pfLegStats).sort((a, b) => b.length - a.length);
+                                 for (const k of sortedKeys) {
+                                     // New format: portfolio_[H]execid_epoch, Old format: PORTFOLIO_LEGID_EXECID
+                                     if (orderId.endsWith('_' + k) || orderId.includes('_' + k + '_') || orderId.includes('_H' + k + '_')) {
+                                         execKey = k;
+                                         baseKey = k.replace(/\.\d+$/, '');
+                                         break;
+                                     }
                                  }
-                             }
+                            }
                         }
                         if (execKey || baseKey) {
                             const stats = (execKey && pfLegStats[execKey]) ? pfLegStats[execKey] : (baseKey && pfLegStats[baseKey]) ? pfLegStats[baseKey] : null;
